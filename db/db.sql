@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS boringCo;
+CREATE DATABASE boringCo;
+USE boringCo;
