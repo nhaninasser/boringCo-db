@@ -16,3 +16,21 @@ router.get('/employees', (req, res) => {
         });
     });
 });
+
+router.get('/employee/:id', (req, res) => {
+    const sql = `SELECT * FROM employee WHERE ID = ?`;
+    const params = [req.params.id];
+    db.query(sql, params, (err, row) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: row
+        });
+    });
+});
+
+
+module.exports = router;
