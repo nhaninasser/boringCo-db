@@ -32,7 +32,7 @@ router.get('/department/:id', (req, res) => {
         });
     });
 });
-
+// adds a department
 router.post('/department', ({ body }, res) => {
     const sql = `INSERT INTO department (name) VALUES (?)`;
     const params = [body.name];
