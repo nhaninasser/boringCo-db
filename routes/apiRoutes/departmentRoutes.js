@@ -17,7 +17,7 @@ router.get('/departments', (req, res) => {
         });
     });
 });
-
+//gets department by id
 router.get('/department/:id', (req, res) => {
     const sql = `SELECT * FROM department WHERE ID = ?`;
     const params = [req.params.id];
@@ -32,6 +32,24 @@ router.get('/department/:id', (req, res) => {
         });
     });
 });
+
+router.post('/department', ({ body }, res) => {
+    const sql = `INSERT INTO department (name) VALUES (?)`;
+    const params = [body.name];
+  
+    db.query(sql, params, (err, result) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+        return;
+      }
+      res.json({
+        message: 'success',
+        data: body,
+        changes: result.affectedRows
+      });
+    });
+  });
+
 
 
 module.exports = router;

@@ -16,7 +16,7 @@ router.get('/role', (req, res) => {
         });
     });
 });
-
+//gets department by id
 router.get('/role/:id', (req, res) => {
     const sql = `SELECT * FROM role WHERE ID = ?`;
     const params = [req.params.id];

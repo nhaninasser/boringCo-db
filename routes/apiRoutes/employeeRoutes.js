@@ -16,7 +16,7 @@ router.get('/employees', (req, res) => {
         });
     });
 });
-
+//gets department by id
 router.get('/employee/:id', (req, res) => {
     const sql = `SELECT * FROM employee WHERE ID = ?`;
     const params = [req.params.id];
