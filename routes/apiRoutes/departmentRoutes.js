@@ -52,7 +52,7 @@ router.post('/department', ({ body }, res) => {
 
 //deletes a department
   router.delete('/depatment/:id', (req, res) => {
-    const sql = `DELETE FROM deartment WHERE id = ?`;
+    const sql = `DELETE FROM department WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
         if (err) {

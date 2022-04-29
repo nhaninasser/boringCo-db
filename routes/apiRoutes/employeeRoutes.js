@@ -52,7 +52,7 @@ router.post('/employee', ({ body }, res) => {
 
   //deltes an employee
   router.delete('/employee/:id', (req, res) => {
-    const sql = `DELETE FROM employe WHERE id = ?`;
+    const sql = `DELETE FROM employee WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
         if (err) {
