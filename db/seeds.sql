@@ -7,7 +7,7 @@ INSERT INTO role (title, salary, department_id)
 VALUES
 ("CEO", 500000.00, 1),
 ("Vice President", 300000.00, 1),
-("Software Engineer", 100000.00. 2),
+("Software Engineer", 100000.00, 2),
 ("Electrical Engineer", 180000.00, 2),
 ("Mechanical Engineer", 160000.00, 2),
 ("Entry Level", 85000.00, 3),
@@ -21,7 +21,13 @@ VALUES
       ("Mark", "Muniz", 5, NULL),
       ("Joey", "Diaz", 3, NULL),
       ("Joe", "Rogan", 6, 3),
-      ("Andrew", "Shulz", 7, 3);
-      
+      ("Andrew", "Shulz", 7, 3),
+      ("Steve", "Jobs", 1, NULL),
+      ("Brad", "Pitt", 2, 1),
+      ("Seth", "Green", 4, 2),
+      ("Mark", "Whalberg", 5, NULL),
+      ("Justin", "Bieber", 3, NULL),
+      ("Alex", "Stefano", 6, 3),
+      ("Robert", "Mason", 4, 2);
 
 
