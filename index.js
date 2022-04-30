@@ -149,5 +149,69 @@ const addRole = () => {
         }
     )
 }
+const addEmployee = () => {
+    db.query(`SELECT title from ROLE`,
+        function (err, results, fields) {
+            let titles = results.map((titles) => {
+                return [titles.title].join(" ")
+            })
+            db.query(
+                `SELECT first_name, last_name FROM employee`,
+                function (err, results, fields) {
+                    let names = results.map((names) => {
+                        return [names.first_name, names.last_name].join(" ");
+                    })
+
+                    return inquirer.prompt([
+                        {
+                            type: 'input',
+                            name: 'first_name',
+                            message: "What is the employee's first name?",
+                        },
+                        {
+                            type: 'input',
+                            name: 'last_name',
+                            message: "What is the employee's last name?",
+                        },
+                        {
+                            type: 'list',
+                            name: 'role_title',
+                            message: "What is this employee's role title?",
+                            choices: titles
+                        },
+                        {
+                            type: 'list',
+                            name: 'manager_name',
+                            message: "Who does this employee report to?",
+                            choices: names
+                        }
+
+                    ])
+                        .then((answers) => {
+                            let roleTitle = answers.role_title
+                            let managerName = answers.manager_name.split(" ")
+                            let firstName = managerName[0].toString()
+                            let lastName = managerName[1].toString()
+                            let managerId = []
+                            db.query(
+                                `SELECT id FROM employee WHERE first_name = ? AND last_name =? `,
+                                [firstName, lastName],
+                                function (err, results1, fields) {
+                                    managerId.push(results1[0])
+                                }
+                            )
+                            db.query(
+                                `SELECT id FROM role WHERE title = ?`,
+                                [roleTitle],
+                                function (err, results, fields) {
+                                    const roleId = results
+                                    return new Employee(answers.first_name, answers.last_name, roleId[0].id, managerId[0].id).addEmployee()
+                                })
+                        })
+                })
+        })
+}
+
+
 
 module.exports = initialPrompt;
