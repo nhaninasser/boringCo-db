@@ -112,3 +112,40 @@ const addDepartment = () => {
 };
 
 
+const addRole = () => {
+    db.query(`SELECT name FROM department`,
+        function (err, results, fields) {
+            let names = results.map((names) => {
+                return [names.name].join(" ")
+            });
+            return inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'title',
+                    message: "What role do you want to add?",
+                },
+                {
+                    type: 'input',
+                    name: 'salary',
+                    message: "What is the salary for this role?",
+                },
+                {
+                    type: 'list',
+                    name: 'department_name',
+                    message: "What department is it?",
+                    choices: names
+                }
+            ])
+                .then((answers) => {
+                    let departmentName = answers.department_name
+                    db.query(
+                        `SELECT id FROM department WHERE name = ?`,
+                        [departmentName],
+                        function (err, results, fields) {
+                            const departmentId = results;
+                            return new Role(answers.title, answers.salary, departmentId[0].id).addRole()
+                        })
+                })
+        }
+    )
+}
