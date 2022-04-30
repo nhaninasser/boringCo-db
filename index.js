@@ -107,7 +107,7 @@ const addDepartment = () => {
         }
     ])
         .then((answers) => {
-            return new Department(answers.nae).addDepartment()
+            return new Department(answers.name).addDepartment()
         });
 };
 
@@ -149,3 +149,5 @@ const addRole = () => {
         }
     )
 }
+
+module.exports = initialPrompt;
