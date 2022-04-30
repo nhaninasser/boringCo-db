@@ -98,4 +98,17 @@ const viewEmployees = () => {
     });
 };
 
+const addDepartment = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: "What is the name of the department?",
+        }
+    ])
+        .then((answers) => {
+            return new Department(answers.nae).addDepartment()
+        });
+};
+
 
