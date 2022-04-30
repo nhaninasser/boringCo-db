@@ -85,5 +85,17 @@ const viewRoles = () => {
     });
 };
 
+const viewEmployees = () => {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, department.name AS department, role.salary, manager.first_name AS manager_first_name, manager.last_name AS manager_last_name FROM employee
+    LEFT JOIN role ON employee.role_id = role.id
+    LEFT JOIN department ON role.department_id = department.id
+    LEFT JOIN employee AS manager on employee.manager_id = manager.id
+    ORDER BY employee.id`;
+    db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        initialPrompt();
+    });
+};
 
 
