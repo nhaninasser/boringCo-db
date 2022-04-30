@@ -27,7 +27,7 @@ function initialPrompt() {
             { name: "Add a role", value: "add_role" },
             { name: "Add an employee", value: "add_employee" },
             { name: "Update an employee role", value: "update_employee_role" },
-            {name: "Exit", value: "close_connection"} 
+            { name: "Exit", value: "close_connection" }
         ]
     }).then((answers) => {
         const { choices } = answers;
