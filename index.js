@@ -3,7 +3,8 @@ const cTable = require('console.table');
 const db = require('./db/connection');
 
 const Department = require('./lib/Department');
-
+const Role = require('./lib/Role');
+const Employee = require('./lib/Employee');
 
 db.connect(err => {
     if (err) throw err;
@@ -72,3 +73,17 @@ const viewDepartments = () => {
         initialPrompt();
     });
 };
+
+const viewRoles = () => {
+    const sql = `SELECT role.id, role.title, role.salary, department.name AS department
+                  FROM role
+                  JOIN department ON role.department_id = department.id`;
+    db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        initialPrompt();
+    });
+};
+
+
+
