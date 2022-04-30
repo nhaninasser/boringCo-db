@@ -212,6 +212,47 @@ const addEmployee = () => {
         })
 }
 
+const updateEmployee = () => {
+    db.query(`SELECT first_name, last_name FROM employee`,
+        function (err, results, fields) {
+            let names = results.map((names) => {
+                return [names.first_name, names.last_name].join(" ");
+            })
+            db.query(
+                `SELECT title FROM role`,
+                function (err, results, fields) {
+                    let titles = results.map((titles) => {
+                        return [titles.title].join(" ")
+                    })
+
+                    return inquirer.prompt([
+                        {
+                            type: 'list',
+                            name: 'name',
+                            message: "Which employee would you like to update?",
+                            choices: names
+                        },
+                        {
+                            type: 'list',
+                            name: 'role_id',
+                            message: "What is this employee's new role?",
+                            choices: titles
+                        }
+                    ])
+                        .then((answers) => {
+                            const name = answers.name.split(" ")
+                            const firstName = name[0]
+                            const lastName = name[1]
+                            const role = answers.role_id.split(" ")
+                            const roleId = role.pop()
+
+                            return new Employee(firstName, lastName, roleId).updateEmployee()
+                        })
+                }
+            )
+        }
+    )
+};
 
 
 module.exports = initialPrompt;
