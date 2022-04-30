@@ -2,13 +2,16 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 const db = require('./db/connection');
 
-const Department = require('./lib/Department')
+const Department = require('./lib/Department');
+
 
 db.connect(err => {
     if (err) throw err;
     console.log('Database connected.');
     initialPrompt();
 });
+
+
 
 function initialPrompt() {
     inquirer.prompt({
@@ -22,7 +25,8 @@ function initialPrompt() {
             { name: "Add a department", value: "add_department" },
             { name: "Add a role", value: "add_role" },
             { name: "Add an employee", value: "add_employee" },
-            { name: "Update an employee role", value: "update_employee_role" }
+            { name: "Update an employee role", value: "update_employee_role" },
+            {name: "Exit", value: "close_connection"} 
         ]
     }).then((answers) => {
         const { choices } = answers;
@@ -53,6 +57,9 @@ function initialPrompt() {
 
         if (choices === "update_employee_role") {
             updateEmployee();
+        }
+        if (choices === "close_connection") {
+            process.exit();
         }
     });
 }
